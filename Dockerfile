@@ -10,7 +10,7 @@ FROM alpine:3.10
 ENV DATA_DIRECTORY /go/src/9phum.com/financial-app-backend/
 RUN apk add --update --no-cache \
     ca-certificates
-COPY internal/database/migrations ${DATA_DIRECTORY}internal/database/migrations   
+COPY internal/database/migrations ${DATA_DIRECTORY}internal/database/migrations
 COPY --from=builder ${DATA_DIRECTORY}server /financial-app-backend
 
 ENTRYPOINT ["/financial-app-backend"]

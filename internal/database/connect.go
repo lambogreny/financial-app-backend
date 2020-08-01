@@ -11,14 +11,14 @@ import (
 )
 
 var (
-	databaseURL     = flag.String("database-url", "postgres://postgres:password@localhost:5433/postgres?sslmode=disable", "Database URL.")
+	databaseURL     = flag.String("database-url", "postgres://postgres:password@localhost:5432/postgres?sslmode=disable", "Database URL")
 	databaseTimeout = flag.Int64("database-timeout-ms", 2000, "")
 )
 
 //Connect creates a new database connection
 func Connect() (*sqlx.DB, error) {
 	dbURL := *databaseURL
-	//WithField("url", dbURL).
+
 	logrus.WithField("url", dbURL).Debug("connecting to database.")
 	conn, err := sqlx.Open("postgres", dbURL)
 	if err != nil {
@@ -33,10 +33,11 @@ func Connect() (*sqlx.DB, error) {
 	}
 
 	//Migrate database schema
-
-	if err := migrateDb(conn.DB); err != nil {
-		return nil, errors.Wrap(err, "cloud not migrate database")
-	}
+	/*
+		if err := migrateDb(conn.DB); err != nil {
+			return nil, errors.Wrap(err, "cloud not migrate database")
+		}
+	*/
 
 	return conn, nil
 }

@@ -17,7 +17,6 @@ func main() {
 	flag.Parse()
 
 	logrus.SetLevel(logrus.DebugLevel)
-
 	logrus.WithField("version", config.Version).Debug("starting server.")
 
 	//Creating new database
@@ -25,6 +24,8 @@ func main() {
 	if err != nil {
 		logrus.WithError(err).Fatal("Eror verifying database.")
 	}
+
+	logrus.Debug("Database is ready to use.")
 
 	//Creating new router
 	router, err := api.NewRouter(db)
@@ -42,4 +43,5 @@ func main() {
 	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		logrus.WithError(err).Error("server failed.")
 	}
+
 }

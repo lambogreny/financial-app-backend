@@ -6,7 +6,7 @@ import (
 
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
-	_ "github.com/golang-migrate/migrate/v4/source/github"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 
@@ -18,6 +18,7 @@ func migrateDb(db *sql.DB) error {
 	if err != nil {
 		return errors.Wrap(err, "connecting to database")
 	}
+
 	migrationSourse := fmt.Sprintf("file//%sinternal/database/migrations/", *config.DataDirectory)
 	migrator, err := migrate.NewWithDatabaseInstance(migrationSourse, "postgres", driver)
 	if err != nil {

@@ -10,6 +10,7 @@ import (
 type Database interface {
 	io.Closer
 }
+
 type database struct {
 	conn *sqlx.DB
 }
